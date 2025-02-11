@@ -1,1 +1,473 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GZ</title>
+    <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/genz-9f218.firebasestorage.app/o/_f4v2ry.jpg?alt=media&token=9985a2cf-1219-483c-aa32-f673cf5ccbfd"> <!-- Profil -->
+    <link href="https://fonts.googleapis.com/css2?family=Billabong&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            position: relative;
+        }
+        header {
+            background-color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.5em;
+            font-family: 'Billabong', cursive;
+            color: #007bff;
+            border: 2px solid #007bff;
+            padding: 4px;
+            border-radius: 4px;
+        }
+        .divider {
+            height: 1px;
+            background-color: #007bff;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 5px;
+            padding: 5px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 0 5px;
+            font-size: 0.8em;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .button i {
+            margin-right: 2px;
+        }
+        .button#statistiquesButton {
+            border-bottom: 1px solid lawngreen;
+        }
+        .notification {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #0056b3;
+            font-weight: bold;
+        }
+        .footer-title {
+            text-align: center;
+            color: black;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+        .date-input, .country-select, .submit-button {
+            display: block;
+            width: 330px;
+            margin: 20px auto;
+            padding: 5px;
+            border: 1px solid #007bff;
+            border-radius: 0;
+            background-color: white;
+            color: black;
+            font-size: 1em;
+        }
+        .submit-button {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: gray;
+            color: white;
+        }
+        .reset-icon {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: none;
+            margin: 10px auto;
+            text-align: center;
+        }
+        .rectangle {
+            width: 330px;
+            min-height: 30px;
+            background-color: #e7f3ff;
+            margin: 10px auto;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5px;
+            text-align: center;
+        }
+        .text-line {
+            font-size: 0.9em;
+            color: #0056b3;
+            margin: 5px 0;
+        }
+        .text-line.bold {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .link {
+            color: white;
+            text-decoration: none;
+            background-color: #007bff;
+            border-radius: 5px;
+            padding: 8px 12px;
+            transition: background-color 0.3s;
+        }
+        .link:hover {
+            background-color: #0056b3;
+        }
+        .share-icon {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 1.5em;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            padding: 4px;
+            background-color: white;
+        }
+        footer {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-container {
+            display: flex;
+        }
+        .logo {
+            color: #007bff;
+            font-size: 1.5em;
+            margin-right: 10px;
+            border: 1px solid #007bff;
+            border-radius: 2px;
+            padding: 5px;
+            transition: background-color 0.3s;
+        }
+        .logo:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Styles pour le modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 43% auto;
+            padding: 20px;
+            border: 1px solid #007bff;
+            border-radius: 30px;
+            width: 170px;
+            text-align: center;
+        }
+        .modal-header {
+            font-size: 1.1em; /* Réduire la taille */
+            margin-bottom: 15px;
+            font-weight: bold; /* Mettre en gras */
+            color: #007bff; /* Couleur */
+            text-decoration: underline; /* Souligner */
+        }
+        .modal-footer {
+            margin-top: 15px;
+        }
+        .close-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-size: 0.8em; /* Taille des boutons réduite */
+        }
+        .close-button:hover {
+            background-color: #0056b3;
+        }
+        .gender-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .gender-option {
+            margin: 5px;
+        }
+        .or-text {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.8em; /* Réduire la taille de "Ou" */
+        }
+    </style>
+</head>
+<body>
+
+  <header>
+    <h1 translate="no">GZ</h1>
+    <div>
+      <a href="pagedetraduction.html">
+        <i class="fas fa-language share-icon"></i> <!-- Icône de traduction -->
+      </a>
+      <a href="Partage.html">
+        <i class="fas fa-share-alt share-icon"></i>
+      </a>
+    </div>
+  </header>
+
+  <div class="divider"></div> <!-- Ligne séparatrice ajoutée ici -->
+
+  <div class="button-container">
+    <a class="button" href="Faq.html" translate="yes"><i class="fas fa-question-circle"></i>FAQ</a>
+    <a class="button" href="Statistiques.html" id="statistiquesButton">
+      <i class="fas fa-chart-bar"></i> Découverte</a>
+    <a class="button" href="Contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a class="button" href="Terms.html"><i class="fas fa-file-contract"></i>Conditions</a>
+    <a class="button" href="Confidentialité.html"><i class="fas fa-file-contract"></i>Confidentialité</a>
+  </div>
+
+  <script>
+    const button = document.getElementById('statistiquesButton');
+
+    let colors = ['lawngreen', 'white'];
+    let index = 0;
+
+    setInterval(() => {
+      button.style.borderBottom = `4px solid ${colors[index]}`;
+      index = (index + 1) % colors.length; // Cycle à travers les couleurs
+    }, 400); // Change de couleur toutes les secondes
+  </script>
+
+  <div class="divider"></div>
+
+  <div class="notification">
+    <span class="notification-text">Découvrons ensemble les secrets de nos générations.</span>
+    <div class="new-message-badge"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="footer-title">
+    Rejoignez-nous pour découvrir les secrets de notre génération en quelques clics !
+  </div>
+
+  <input type="date" class="date-input" id="birthdate" placeholder="Sélectionnez votre date de naissance" min="1900-01-01" max="" />
+  <select class="country-select" id="countrySelect">
+    <option value="" disabled selected>Sélectionnez votre pays de naissance</option>
+  </select>
+  <p style="text-align: center; color: black; font-size: 0.7em; margin-top: 5px; text-decoration: underline; text-decoration-color: rgb(0, 123, 191);">
+    En soumettant, vous acceptez nos conditions d'utilisation.
+  </p>
+  <button class="submit-button" type="submit">Soumettre</button>
+
+  <i class="fas fa-redo reset-icon" id="resetButton" title="Réinitialiser"></i>
+
+  <div class="divider"></div>
+
+  <div class="rectangle">
+    <div class="text-line bold" style="font-size: 1em; color: #0056b3;">Comment ça fonctionne ?</div>
+    <div class="text-line"> Deux sélecteurs sont à votre disposition : le premier est un calendrier pour choisir votre date de naissance, et le second est un sélecteur pour votre pays de naissance. Une fois vos sélections effectuées, cliquez sur "Soumettre". Après cela, on vous demandera de spécifier votre genre biologique ; cliquez sur cette option pour devenir contributeur. Enfin, cliquez sur le bouton "Découverte", qui clignote en vert. Vous découvrirez alors deux nouveaux sélecteurs : naviguez selon vos préférences pour explorer les statistiques. </div>
+  </div>
+
+  <div class="text-line" style="text-align: center; color: black;">
+    <span style="color: #007bff;">_____</span> Ne manquez rien <span style="color: #007bff;">_____</span>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="logo-container">
+        <a href="https://www.facebook.com/share/15nGTcCb4i/.html" target="_blank" class="logo">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://x.com/GZWRD?t=g7yvHCDW2-xPLaTTgea-YA&s=09.html" target="_blank" class="logo">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com/gzw0orld?igsh=a3M3aWpob21qcmFn.html" target="_blank" class="logo">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://t.me/WorldGZ" target="_blank" class="logo">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+      </div>
+      <div class="copyright">
+        ©️ 2025 G-Z
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="genderModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header" style="text-decoration: underline;"> Votre genre de naissance ?</div>
+      <div class="modal-footer">
+        <button class="close-button" id="genderMan" value="Homme">Homme</button>
+        <button class="close-button" id="genderWoman" value="Femme">Femme</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getDatabase, ref, push, remove } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBwfLgPM_tz2aFW33ck5iF9SPSxpPpYSHU",
+      authDomain: "genz-9f218.firebaseapp.com",
+      databaseURL: "https://genz-9f218-default-rtdb.firebaseio.com",
+      projectId: "genz-9f218",
+      storageBucket: "genz-9f218.firebasestorage.app",
+      messagingSenderId: "286958713700",
+      appId: "1:286958713700:web:29d878befaf6dd8c049871",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+    // Authentification anonyme
+    signInAnonymously(auth)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Utilisateur connecté : ", user.uid);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la connexion anonyme : ", error);
+      });
+
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("birthdate").setAttribute('max', today);
+
+    // Charger la liste des pays
+    fetch('https://restcountries.com/v3.1/all')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erreur réseau : ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+        const countrySelect = document.getElementById('countrySelect');
+        data.forEach(country => {
+          const option = document.createElement('option');
+          option.value = country.name.common;
+          option.textContent = country.name.common;
+          countrySelect.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Erreur lors du chargement des pays :', error));
+
+    let lastSubmittedId = null;
+
+    document.querySelector('.submit-button').addEventListener('click', function() {
+      const birthdate = document.getElementById('birthdate').value;
+      const country = document.getElementById('countrySelect').value;
+
+      if (birthdate && country) {
+        const submitButton = document.querySelector('.submit-button');
+        submitButton.textContent = "Veuillez patienter...";
+        submitButton.style.backgroundColor = 'orange';
+
+        document.getElementById('genderModal').style.display = 'block';
+      } else {
+        alert("Veuillez entrer une date de naissance et sélectionner un pays !");
+      }
+    });
+
+    document.getElementById('genderMan').addEventListener('click', function() {
+      submitData("Homme");
+    });
+    document.getElementById('genderWoman').addEventListener('click', function() {
+      submitData("Femme");
+    });
+
+    function submitData(gender) {
+      const birthdate = document.getElementById('birthdate').value;
+      const country = document.getElementById('countrySelect').value;
+      const submitButton = document.querySelector('.submit-button');
+
+      const newEntryRef = push(ref(database, 'birthdates'), {
+        date: birthdate,
+        country: country,
+        gender: gender
+      });
+
+      lastSubmittedId = newEntryRef.key;
+
+      newEntryRef.then(() => {
+        submitButton.style.backgroundColor = 'green';
+        submitButton.textContent = "Soumis";
+        submitButton.disabled = true;
+        document.getElementById('resetButton').style.display = "block";
+        document.getElementById('genderModal').style.display = 'none';
+      }).catch((error) => {
+        submitButton.style.backgroundColor = 'red';
+        submitButton.textContent = "Erreur";
+        console.error("Erreur lors de la soumission : ", error);
+      });
+    }
+
+    document.getElementById('resetButton').addEventListener('click', function() {
+      if (lastSubmittedId) {
+        remove(ref(database, `birthdates/${lastSubmittedId}`))
+          .then(() => {
+            document.getElementById('birthdate').value = '';
+            document.getElementById('countrySelect').value = '';
+            const submitButton = document.querySelector('.submit-button');
+            submitButton.textContent = "Soumettre";
+            submitButton.style.backgroundColor = '#007bff';
+            submitButton.disabled = false;
+            document.getElementById('resetButton').style.display = "none";
+          })
+          .catch((error) => {
+            console.error("Erreur lors de la réinitialisation des données : ", error);
+          });
+      }
+    });
+
+    // Fermer le modal en cliquant à l'extérieur
+    window.onclick = function(event) {
+      const modal = document.getElementById('genderModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+        const submitButton = document.querySelector('.submit-button');
+        submitButton.style.backgroundColor = 'red';
+        submitButton.textContent = "Erreur";
+      }
+    };
+  </script>
+</body>
+</html>
