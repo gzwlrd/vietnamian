@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Billabong&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5; /* Light background color */
+            margin: 0;
+            padding: 0;
+            color: #333; /* Text color */
+            font-family: 'Roboto', Arial, sans-serif; /* Use a similar font */
+        }
+        header {
+            background-color: #ffffff; /* White background */
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+            max-width: 1200px; /* Limite la largeur du conteneur */
+            margin: 0 auto; /* Centre le conteneur */
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.2em; /* Adjusted font size */
+            font-family: 'Billabong', cursive;
+            color: #007BFF; /* Blue color */
+        }
+        .logo-genz {
+            border: 1.5px solid #007BFF; /* Blue border */
+            padding: 3px 6px; /* Reduced padding */
+            display: inline-block;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .divider {
+            height: 1px;
+            background-color: #007BFF; /* Blue border */
+            width: 100%;
+            margin-top: 0; /* Remove top margin */
+        }
+        .divider-text {
+            text-align: center;
+            color: #333; /* Text color */
+            font-size: 0.9em;
+            margin: 10px 0; 
+        }
+        footer {
+            text-align: center;
+            color: #333; /* Text color */
+            margin: 20px 0;
+            font-size: 0.8em;
+        }
+        /* Style pour le menu déroulant */
+        #language-selector {
+            margin-left: auto; /* Pousse le menu à droite */
+            padding: 3px; /* Réduit le padding intérieur */
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #333;
+            background-color: #ffffff; /* White background */
+            width: 105px; /* Définir la largeur */
+        }
+    </style>
+    <script>
+        function changeLanguage() {
+            var selector = document.getElementById("language-selector");
+            var url = selector.value;
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    </script>
+</head>
+<body>
 
+<header>
+    <a href="index.html" style="text-decoration: none; color: inherit;">
+        <h1 class="logo-genz" translate="no">GZ</h1>
+    </a>
+    <select id="language-selector" onchange="changeLanguage()">
+        <option value="" disabled selected>Language</option>
+        <option value="https://www.g-z.online/">English</option>
+        <option value="https://gzlanguage.github.io/french/">Français</option>
+        <option value="https://gzlanguage.github.io/espagnol/">Español</option>
+        <option value="https://gzlanguage.github.io/allemand/">Deutsch</option>
+        <option value="https://gzlanguage.github.io/chinois/">中文</option>
+        <option value="https://gzlanguage.github.io/russe/">Русский</option>
+        <option value="https://gzlanguage.github.io/arabe/">العربية</option>
+        <option value="https://gzlanguage.github.io/portugais/">Português</option>
+        <option value="https://gzlanguage.github.io/italien/">Italiano</option>
+        <option value="https://gzlanguage.github.io/neerlandais/">Nederlands</option>
+        <option value="https://gzlanguage.github.io/japonais/">日本語</option>
+        <option value="https://gzlanguage.github.io/coreen/">한국어</option>
+        <option value="https://gzlanguage.github.io/turc/">Türkçe</option>
+        <option value="https://gzlanguage.github.io/hindi/">हिन्दी</option>
+        <option value="https://gzlanguage.github.io/suedois/">Svenska</option>
+        <option value="https://gzlanguage.github.io/jjjjj/">Dansk</option>
+        <option value="https://gzlanguage.github.io/jjjjj//no">Norsk</option>
+        <option value="https://gzlanguage.github.io/jjjjj//fi">Suomi</option>
+        <option value="https://example.com/cs">Čeština</option>
+        <option value="https://example.com/pl">Polski</option>
+        <option value="https://example.com/ro">Română</option>
+        <option value="https://example.com/hu">Magyar</option>
+        <option value="https://example.com/sl">Slovenščina</option>
+        <option value="https://example.com/sk">Slovenčina</option>
+        <option value="https://example.com/bg">Български</option>
+        <option value="https://example.com/ca">Català</option>
+        <option value="https://example.com/ms">Bahasa Melayu</option>
+        <option value="https://example.com/id">Bahasa Indonesia</option>
+        <option value="https://example.com/vi">Tiếng Việt</option>
+        <option value="https://example.com/tl">Filipino</option>
+        <option value="https://example.com/sw">Kiswahili</option>
+        <option value="https://example.com/sr">Српски</option>
+        <option value="https://example.com/hr">Hrvatski</option>
+        <option value="https://example.com/uk">Українська</option>
+        <option value="https://example.com/fa">فارسی</option>
+        <option value="https://example.com/ta">தமிழ்</option>
+        <option value="https://example.com/te">తెలుగు</option>
+        <option value="https://example.com/bn">বাংলা</option>
+        <option value="https://example.com/mr">मराठी</option>
+        <option value="https://example.com/hy">Հայերեն</option>
+        <option value="https://example.com/eu">Euskara</option>
+        <option value="https://example.com/gl">Galego</option>
+        <option value="https://example.com/mn">Монгол</option>
+        <option value="https://example.com/he">עברית</option>
+        <option value="https://example.com/kk">Қазақша</option>
+        <option value="https://example.com/lt">Lietuvių</option>
+        <option value="https://example.com/lv">Latviešu</option>
+        <option value="https://example.com/et">Eesti</option>
+        <option value="https://example.com/is">Íslenska</option>
+    </select>
+</header>
+
+<div class="divider"></div>
+<div class="divider-text">Translation page</div>
+<div class="divider"></div>
+
+<footer>
+    <p></p> <!-- Suppression de la section copyright -->
+</footer>
+
+</body>
+</html>
