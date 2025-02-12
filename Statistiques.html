@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,21 +157,21 @@
         .modal-content {
             background-color: #fff;
             margin: 33% auto; 
-            padding: 15px; /* Reduced padding */
+            padding: 15px; /* Réduction de l'espacement */
             border: 1px solid #007BFF; 
-            border-radius: 10px; /* Reduced border radius */
+            border-radius: 10px; /* Réduction du rayon de bordure */
             width: 80%; 
-            max-width: 290px; /* Reduced width */
+            max-width: 290px; /* Réduction de la largeur */
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .close {
             color: red; 
-            font-size: 20px; /* Reduced font size */
+            font-size: 20px; /* Réduction de la taille de police */
             font-weight: bold;
             display: block; 
             text-align: center; 
-            margin-bottom: 10px; /* Reduced margin */
+            margin-bottom: 10px; /* Réduction de la marge */
             cursor: pointer;
         }
 
@@ -181,8 +181,8 @@
 
         .modal p {
             color: #333; 
-            font-size: 0.9em; /* Reduced font size */
-            text-align: center; /* Centered text */
+            font-size: 0.9em; /* Réduction de la taille de police */
+            text-align: center; /* Texte centré */
         }
 
         .support-button {
@@ -190,10 +190,10 @@
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 8px 12px; /* Reduced padding */
+            padding: 8px 12px; /* Réduction de l'espacement */
             cursor: pointer;
-            font-size: 0.9em; /* Reduced font size */
-            margin-top: 10px; /* Reduced margin */
+            font-size: 0.9em; /* Réduction de la taille de police */
+            margin-top: 10px; /* Réduction de la marge */
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -224,15 +224,15 @@
         const db = getDatabase(app);
         const auth = getAuth();
 
-        let allData = {}; // Store global data
+        let allData = {}; // Stocker les données globales
 
         function fetchData() {
             const birthdatesRef = ref(db, 'birthdates');
             onValue(birthdatesRef, (snapshot) => {
-                allData = snapshot.val() || {}; // Store data in a global variable
-                console.log(allData); // Display retrieved data
-                updateCountries(); // Update available countries
-                updateCards(); // Update cards with data
+                allData = snapshot.val() || {}; // Stocker les données dans une variable globale
+                console.log(allData); // Afficher les données récupérées
+                updateCountries(); // Mettre à jour les pays disponibles
+                updateCards(); // Mettre à jour les cartes avec les données
             });
         }
 
@@ -240,13 +240,13 @@
             const countrySelect = document.getElementById('countrySelect');
             const countries = new Set();
 
-            // Retrieve unique countries from data
+            // Récupérer les pays uniques à partir des données
             Object.keys(allData).forEach(userId => {
                 const userData = allData[userId];
-                countries.add(userData.country); // Ensure 'country' is a property of userData
+                countries.add(userData.country); // Assurer que 'country' est une propriété de userData
             });
 
-            // Fill the country selector
+            // Remplir le sélecteur de pays
             countries.forEach(country => {
                 const option = document.createElement('option');
                 option.value = country;
@@ -268,42 +268,42 @@
 
         function updateCards() {
             const grid = document.getElementById('grid');
-            grid.innerHTML = ''; // Clear current content
+            grid.innerHTML = ''; // Effacer le contenu actuel
 
             const selectedCountry = document.getElementById('countrySelect').value;
             const selectedCategory = document.getElementById('categorySelect').value;
 
             if (Object.keys(allData).length === 0) {
-                grid.innerHTML = '<p>No data found.</p>';
+                grid.innerHTML = '<p>Aucune donnée trouvée.</p>';
                 return;
             }
 
             const counts = {};
 
-            // Count by category
+            // Compter par catégorie
             Object.keys(allData).forEach(userId => {
                 const userData = allData[userId];
                 if (userData.country === selectedCountry || selectedCountry === '') {
                     let key;
                     if (selectedCategory === 'daily') {
-                        key = new Date(userData.date).toLocaleDateString('en-US', { weekday: 'long' });
+                        key = new Date(userData.date).toLocaleDateString('fr-FR', { weekday: 'long' });
                     } else if (selectedCategory === 'monthly') {
-                        key = new Date(userData.date).toLocaleDateString('en-US', { month: 'long' });
+                        key = new Date(userData.date).toLocaleDateString('fr-FR', { month: 'long' });
                     } else if (selectedCategory === 'yearly') {
                         key = new Date(userData.date).getFullYear();
                     } else if (selectedCategory === 'gender') {
-                        key = userData.gender; // For the 'gender' category
+                        key = userData.gender; // Pour la catégorie 'gender'
                     } else if (selectedCategory === 'age') {
-                        key = calculateAge(userData.date); // Calculate age
+                        key = calculateAge(userData.date); // Calculer l'âge
                     } else if (selectedCategory === 'population') {
-                        key = userData.country; // For population, use country
+                        key = userData.country; // Pour la population, utiliser le pays
                     }
 
                     counts[key] = (counts[key] || 0) + 1;
                 }
             });
 
-            // Display cards
+            // Afficher les cartes
             Object.keys(counts).forEach(key => {
                 const card = document.createElement('div');
                 card.className = 'card small-card';
@@ -311,13 +311,13 @@
                 grid.appendChild(card);
             });
 
-            // If no data is found
+            // Si aucune donnée n'est trouvée
             if (grid.innerHTML === '') {
-                grid.innerHTML = '<p>No data found.</p>';
+                grid.innerHTML = '<p>Aucune donnée trouvée.</p>';
             }
         }
 
-        // Debounce function
+        // Fonction de debounce
         function debounce(func, wait) {
             let timeout;
             return function(...args) {
@@ -332,26 +332,26 @@
 
             countrySelect.addEventListener('change', debounce(updateCards, 300));
             categorySelect.addEventListener('change', debounce(updateCards, 300));
-            fetchData(); // Load data on startup
+            fetchData(); // Charger les données au démarrage
 
-            // Open support modal
+            // Ouvrir le modal de soutien
             document.getElementById('supportBtn').onclick = function() {
                 document.getElementById('supportModal').style.display = 'block';
             };
 
-            // Open FAQ modal
+            // Ouvrir le modal FAQ
             document.getElementById('faqBtn').onclick = function() {
                 document.getElementById('faqModal').style.display = 'block';
             };
 
-            // Close modal
+            // Fermer le modal
             document.querySelectorAll('.close').forEach(closeButton => {
                 closeButton.onclick = function() {
                     this.closest('.modal').style.display = 'none';
                 };
             });
 
-            // Close modal by clicking outside
+            // Fermer le modal en cliquant à l'extérieur
             window.onclick = function(event) {
                 const modals = document.querySelectorAll('.modal');
                 modals.forEach(modal => {
@@ -361,7 +361,7 @@
                 });
             };
 
-            // Open PayPal link
+            // Ouvrir le lien PayPal
             document.getElementById('paypalBtn').onclick = function() {
                 window.location.href = 'https://www.paypal.com/ncp/payment/QN7HEGCSRYJKA';
             };
@@ -376,7 +376,7 @@
     </a>
     <div class="copyright-icon">©️</div>
     <a href="Partage.html">
-        <button class="share-button" aria-label="Share">
+        <button class="share-button" aria-label="Partager">
             <i class="fas fa-share-alt"></i>
         </button>
     </a>
@@ -388,47 +388,47 @@
     <button id="faqBtn" class="button" aria-label="FAQ">
         <i class="fas fa-question-circle" style="margin-right: 2px;"></i> FAQ
     </button>
-    <button id="supportBtn" class="button" aria-label="Support" translate="no">
-        <i class="fas fa-hand-holding-heart" style="margin-right: 5px;"></i> Support
+    <button id="supportBtn" class="button" aria-label="Soutien" translate="no">
+        <i class="fas fa-hand-holding-heart" style="margin-right: 5px;"></i> Soutien
     </button>
 </div>
 
 <div class="divider"></div>
 
 <div class="dashboard">
-    <select class="country-select" aria-label="Select a country" id="countrySelect">
-        <option value="">All countries</option>
-        <!-- Country options will be added dynamically -->
+    <select class="country-select" aria-label="Sélectionnez un pays" id="countrySelect">
+        <option value="">Tous les pays</option>
+        <!-- Les options de pays seront ajoutées dynamiquement -->
     </select>
 
-    <select class="category-select" aria-label="Select a category" id="categorySelect">
-        <option value="daily">Births by day</option>
-        <option value="monthly">Births by month</option>
-        <option value="yearly">Births by year</option>
-        <option value="gender">Gender</option>
-        <option value="age">Ages</option>
-        <option value="population">Population</option> <!-- Added Population option -->
+    <select class="category-select" aria-label="Sélectionnez une catégorie" id="categorySelect">
+        <option value="daily">Naissances par jour</option>
+        <option value="monthly">Naissances par mois</option>
+        <option value="yearly">Naissances par année</option>
+        <option value="gender">Genre</option>
+        <option value="age">Âges</option>
+        <option value="population">Population</option> <!-- Option Population ajoutée -->
     </select>
 
     <div class="grid" id="grid">
-        <!-- Cards will be generated here -->
+        <!-- Les cartes seront générées ici -->
     </div>
 </div>
 
-<!-- Support Modal -->
+<!-- Modal de Soutien -->
 <div id="supportModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Thank you for supporting G-Z ! Every support counts. With your help, we will be able to continue to developing this exciting project, create innovative analyses, and provide free statistics to a global audience.</p>
-        <button id="paypalBtn" class="support-button">I support now</button>
+        <p>Merci de soutenir G-Z ! Chaque soutien compte. Grâce à votre aide, nous pourrons continuer à développer ce projet passionnant, créer des analyses innovantes et fournir des statistiques gratuites à un public mondial.</p>
+        <button id="paypalBtn" class="support-button">Je soutiens maintenant</button>
     </div>
 </div>
 
-<!-- FAQ Modal -->
+<!-- Modal FAQ -->
 <div id="faqModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        The statistics update automatically with each submission in the tables.
+        Les statistiques se mettent à jour automatiquement avec chaque soumission dans les tableaux.
     </div>
 </div>
 </body>
