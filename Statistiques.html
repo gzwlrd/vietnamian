@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -224,15 +224,15 @@
         const db = getDatabase(app);
         const auth = getAuth();
 
-        let allData = {}; // Stocker les données globales
+        let allData = {}; // Menyimpan data global
 
         function fetchData() {
             const birthdatesRef = ref(db, 'birthdates');
             onValue(birthdatesRef, (snapshot) => {
-                allData = snapshot.val() || {}; // Stocker les données dans une variable globale
-                console.log(allData); // Afficher les données récupérées
-                updateCountries(); // Mettre à jour les pays disponibles
-                updateCards(); // Mettre à jour les cartes avec les données
+                allData = snapshot.val() || {}; // Menyimpan data ke dalam variabel global
+                console.log(allData); // Menampilkan data yang diambil
+                updateCountries(); // Memperbarui negara yang tersedia
+                updateCards(); // Memperbarui kartu dengan data
             });
         }
 
@@ -240,13 +240,13 @@
             const countrySelect = document.getElementById('countrySelect');
             const countries = new Set();
 
-            // Récupérer les pays uniques à partir des données
+            // Mengambil negara unik dari data
             Object.keys(allData).forEach(userId => {
                 const userData = allData[userId];
-                countries.add(userData.country); // S'assurer que 'country' est une propriété de userData
+                countries.add(userData.country); // Memastikan 'country' adalah properti dari userData
             });
 
-            // Remplir le sélecteur de pays
+            // Mengisi pilihan negara
             countries.forEach(country => {
                 const option = document.createElement('option');
                 option.value = country;
@@ -268,42 +268,42 @@
 
         function updateCards() {
             const grid = document.getElementById('grid');
-            grid.innerHTML = ''; // Effacer le contenu actuel
+            grid.innerHTML = ''; // Menghapus konten saat ini
 
             const selectedCountry = document.getElementById('countrySelect').value;
             const selectedCategory = document.getElementById('categorySelect').value;
 
             if (Object.keys(allData).length === 0) {
-                grid.innerHTML = '<p>Aucune donnée trouvée.</p>';
+                grid.innerHTML = '<p>Tidak ada data ditemukan.</p>';
                 return;
             }
 
             const counts = {};
 
-            // Compter par catégorie
+            // Menghitung berdasarkan kategori
             Object.keys(allData).forEach(userId => {
                 const userData = allData[userId];
                 if (userData.country === selectedCountry || selectedCountry === '') {
                     let key;
                     if (selectedCategory === 'daily') {
-                        key = new Date(userData.date).toLocaleDateString('fr-FR', { weekday: 'long' });
+                        key = new Date(userData.date).toLocaleDateString('id-ID', { weekday: 'long' });
                     } else if (selectedCategory === 'monthly') {
-                        key = new Date(userData.date).toLocaleDateString('fr-FR', { month: 'long' });
+                        key = new Date(userData.date).toLocaleDateString('id-ID', { month: 'long' });
                     } else if (selectedCategory === 'yearly') {
                         key = new Date(userData.date).getFullYear();
                     } else if (selectedCategory === 'gender') {
-                        key = userData.gender; // Pour la catégorie 'gender'
+                        key = userData.gender; // Untuk kategori 'gender'
                     } else if (selectedCategory === 'age') {
-                        key = calculateAge(userData.date); // Calculer l'âge
+                        key = calculateAge(userData.date); // Menghitung usia
                     } else if (selectedCategory === 'population') {
-                        key = userData.country; // Pour la population, utiliser le pays
+                        key = userData.country; // Untuk populasi, gunakan negara
                     }
 
                     counts[key] = (counts[key] || 0) + 1;
                 }
             });
 
-            // Afficher les cartes
+            // Menampilkan kartu
             Object.keys(counts).forEach(key => {
                 const card = document.createElement('div');
                 card.className = 'card small-card';
@@ -311,13 +311,13 @@
                 grid.appendChild(card);
             });
 
-            // Si aucune donnée n'est trouvée
+            // Jika tidak ada data ditemukan
             if (grid.innerHTML === '') {
-                grid.innerHTML = '<p>Aucune donnée trouvée.</p>';
+                grid.innerHTML = '<p>Tidak ada data ditemukan.</p>';
             }
         }
 
-        // Fonction de debounce
+        // Fungsi debounce
         function debounce(func, wait) {
             let timeout;
             return function(...args) {
@@ -332,26 +332,26 @@
 
             countrySelect.addEventListener('change', debounce(updateCards, 300));
             categorySelect.addEventListener('change', debounce(updateCards, 300));
-            fetchData(); // Charger les données au démarrage
+            fetchData(); // Memuat data saat startup
 
-            // Ouvrir le modal de soutien
+            // Membuka modal dukungan
             document.getElementById('supportBtn').onclick = function() {
                 document.getElementById('supportModal').style.display = 'block';
             };
 
-            // Ouvrir le modal FAQ
+            // Membuka modal FAQ
             document.getElementById('faqBtn').onclick = function() {
                 document.getElementById('faqModal').style.display = 'block';
             };
 
-            // Fermer le modal
+            // Menutup modal
             document.querySelectorAll('.close').forEach(closeButton => {
                 closeButton.onclick = function() {
                     this.closest('.modal').style.display = 'none';
                 };
             });
 
-            // Fermer le modal en cliquant à l'extérieur
+            // Menutup modal dengan mengklik di luar
             window.onclick = function(event) {
                 const modals = document.querySelectorAll('.modal');
                 modals.forEach(modal => {
@@ -361,27 +361,27 @@
                 });
             };
 
-            // Ouvrir le lien PayPal
+            // Membuka tautan PayPal
             document.getElementById('paypalBtn').onclick = function() {
                 window.location.href = 'https://www.paypal.com/ncp/payment/QN7HEGCSRYJKA';
             };
 
-            // Changer la couleur du bouton de soutien chaque seconde
+            // Mengubah warna tombol dukungan setiap detik
             const supportButton = document.getElementById('supportBtn');
             let isGreenSupport = false;
 
             setInterval(() => {
-                isGreenSupport = !isGreenSupport; // Alterner la couleur
-                supportButton.style.backgroundColor = isGreenSupport ? 'green' : '#007BFF'; // Changer la couleur
+                isGreenSupport = !isGreenSupport; // Mengubah warna
+                supportButton.style.backgroundColor = isGreenSupport ? 'green' : '#007BFF'; // Mengubah warna
             }, 700);
 
-            // Changer la couleur du bouton PayPal chaque seconde
+            // Mengubah warna tombol PayPal setiap detik
             const paypalButton = document.getElementById('paypalBtn');
             let isGreenPaypal = false;
 
             setInterval(() => {
-                isGreenPaypal = !isGreenPaypal; // Alterner la couleur
-                paypalButton.style.backgroundColor = isGreenPaypal ? 'green' : '#007BFF'; // Changer la couleur
+                isGreenPaypal = !isGreenPaypal; // Mengubah warna
+                paypalButton.style.backgroundColor = isGreenPaypal ? 'green' : '#007BFF'; // Mengubah warna
             }, 10000);
         });
     </script>
@@ -394,7 +394,7 @@
     </a>
     <div class="copyright-icon">©️</div>
     <a href="Partage.html">
-        <button class="share-button" aria-label="Partager">
+        <button class="share-button" aria-label="Bagikan">
             <i class="fas fa-share-alt"></i>
         </button>
     </a>
@@ -403,50 +403,50 @@
 <div class="divider"></div>
 
 <div class="button-container">
-    <button id="faqBtn" class="button" aria-label="Questions fréquentes">
-        <i class="fas fa-question-circle" style="margin-right: 2px;"></i> Questions
+    <button id="faqBtn" class="button" aria-label="Pertanyaan yang Sering Diajukan">
+        <i class="fas fa-question-circle" style="margin-right: 2px;"></i> Pertanyaan
     </button>
-    <button id="supportBtn" class="button" aria-label="Soutien" translate="no">
-        <i class="fas fa-hand-holding-heart" style="margin-right: 5px;"></i> Soutenir
+    <button id="supportBtn" class="button" aria-label="Dukungan" translate="no">
+        <i class="fas fa-hand-holding-heart" style="margin-right: 5px;"></i> Dukungan
     </button>
 </div>
 
 <div class="divider"></div>
 
 <div class="dashboard">
-    <select class="country-select" aria-label="Sélectionner un pays" id="countrySelect">
-        <option value="">Tous les pays</option>
-        <!-- Les options de pays seront ajoutées dynamiquement -->
+    <select class="country-select" aria-label="Pilih negara" id="countrySelect">
+        <option value="">Semua negara</option>
+        <!-- Opsi negara akan ditambahkan secara dinamis -->
     </select>
 
-    <select class="category-select" aria-label="Sélectionner une catégorie" id="categorySelect">
-        <option value="daily">Naissances par jour</option>
-        <option value="monthly">Naissances par mois</option>
-        <option value="yearly">Naissances par an</option>
-        <option value="gender">Genre</option>
-        <option value="age">Âges</option>
-        <option value="population">Population</option>
+    <select class="category-select" aria-label="Pilih kategori" id="categorySelect">
+        <option value="daily">Kelahiran per hari</option>
+        <option value="monthly">Kelahiran per bulan</option>
+        <option value="yearly">Kelahiran per tahun</option>
+        <option value="gender">Jenis Kelamin</option>
+        <option value="age">Usia</option>
+        <option value="population">Populasi</option>
     </select>
 
     <div class="grid" id="grid">
-        <!-- Les cartes seront générées ici -->
+        <!-- Kartu akan dihasilkan di sini -->
     </div>
 </div>
 
-<!-- Modal de Soutien -->
+<!-- Modal Dukungan -->
 <div id="supportModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Merci de soutenir G-Z ! Chaque soutien compte. Grâce à votre aide, nous pouvons continuer à développer ce projet passionnant, créer des analyses innovantes et fournir des statistiques gratuites à un public mondial.</p>
-        <button id="paypalBtn" class="support-button">Soutenir maintenant</button>
+        <p>Terima kasih telah mendukung G-Z! Setiap dukungan sangat berarti. Dengan bantuan Anda, kami dapat terus mengembangkan proyek menarik ini, menciptakan analisis inovatif, dan menyediakan statistik gratis untuk audiens global.</p>
+        <button id="paypalBtn" class="support-button">Dukung sekarang</button>
     </div>
 </div>
 
-<!-- Modal de Questions Fréquemment Posées -->
+<!-- Modal Pertanyaan yang Sering Diajukan -->
 <div id="faqModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        Les statistiques sont mises à jour automatiquement avec chaque envoi dans les tableaux.
+        Statistik diperbarui secara otomatis dengan setiap pengiriman dalam tabel.
     </div>
 </div>
 
