@@ -7,99 +7,75 @@
     <link href="https://fonts.googleapis.com/css2?family=Billabong&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f5f5f5; /* Màu nền sáng */
+            background-color: #f5f5f5; /* Nền sáng */
             margin: 0;
             padding: 0;
-            color: #333; /* Màu chữ */
+            color: #333; /* Màu văn bản */
             font-family: 'Roboto', Arial, sans-serif; /* Sử dụng phông chữ tương tự */
         }
         header {
-            background-color: #ffffff; /* Màu nền trắng */
+            background-color: #ffffff; /* Nền trắng */
             padding: 5px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             height: 50px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bóng nhẹ */
-            max-width: 1200px; /* Giới hạn chiều rộng của khung */
-            margin: 0 auto; /* Trung tâm khung */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+            max-width: 1200px; /* Giới hạn chiều rộng của container */
+            margin: 0 auto; /* Căn giữa container */
         }
         h1 {
             margin: 0;
-            font-size: 1.3em; /* Kích thước phông chữ điều chỉnh */
+            font-size: 1.3em; /* Điều chỉnh kích thước phông chữ */
             font-family: 'Billabong', cursive;
-            color: #007BFF; /* Màu xanh */
+            color: #007BFF; /* Màu xanh dương */
         }
         .logo-genz {
-            border: 1.5px solid #007BFF; /* Viền xanh */
-            padding: 3px 6px; /* Giảm khoảng cách */
+            border: 1.5px solid #007BFF; /* Đường viền xanh dương */
+            padding: 3px 6px; /* Giảm khoảng đệm */
             display: inline-block;
-            border-radius: 10px;
+            border-radius: 7px;
             white-space: nowrap;
         }
         .divider {
             height: 1px;
-            background-color: #007BFF; /* Viền xanh */
+            background-color: #007BFF; /* Màu xanh dương */
             width: 100%;
-            margin-top: 0; /* Loại bỏ khoảng cách trên */
+            margin-top: 0; /* Bỏ margin trên cùng */
         }
         .divider-text {
             text-align: center;
-            color: #333; /* Màu chữ */
+            color: #333; /* Màu văn bản */
             font-size: 0.9em;
             margin: 10px 0; 
         }
         footer {
             text-align: center;
-            color: #333; /* Màu chữ */
+            color: #333; /* Màu văn bản */
             margin: 20px 0;
             font-size: 0.8em;
         }
-        /* Kiểu cho chỉ báo ngôn ngữ (không phải chọn) */
-        .language-indicator {
-            margin-left: auto; /* Đẩy chỉ báo sang phải */
-            padding: 3px 8px; /* Giảm padding bên trong */
+        /* Kiểu menu thả xuống */
+        #language-selector {
+            margin-left: auto; /* Đẩy menu sang phải */
+            padding: 3px; /* Giảm khoảng đệm bên trong */
             border: 1px solid #007BFF;
-            border-radius: 7px;
+            border-radius: 5px;
             font-size: 0.9em;
             color: #333;
-            background-color: #ffffff; /* Màu nền trắng */
-            width: 70px; /* Chiều rộng giảm - có thể giảm thêm nếu cần */
-            text-align: center;
-        }
-        
-        /* Kiểu cho các nút ngôn ngữ */
-        .language-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px; /* Khoảng cách giữa các nút */
-            margin: 20px 0;
-            padding: 0 15px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .language-button {
-            padding: 6px 15px;
-            border: 1px solid #007BFF;
-            border-radius: 20px;
-            background-color: white;
-            color: #333;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-            margin-bottom: 8px;
-            text-align: center;
-            min-width: 80px;
-        }
-        
-        .language-button:hover {
-            background-color: #007BFF;
-            color: white;
+            background-color: #ffffff; /* Nền trắng */
+            width: 105px; /* Đặt chiều rộng */
         }
     </style>
+    <script>
+        function changeLanguage() {
+            var selector = document.getElementById("language-selector");
+            var url = selector.value;
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -107,61 +83,18 @@
     <a href="index.html" style="text-decoration: none; color: inherit;">
         <h1 class="logo-genz" translate="no">GZ</h1>
     </a>
-    <div class="language-indicator">Ngôn ngữ</div>
+    <select id="language-selector" onchange="changeLanguage()">
+        <option value="" disabled selected>Ngôn ngữ</option>
+        <option value="https://www.g-z.online/">English</option>
+    </select>
 </header>
 
 <div class="divider"></div>
-<div class="divider-text">Nếu ngôn ngữ của bạn không có ở đây. Đang phát triển.</div>
+<div class="divider-text">Trang dịch</div>
 <div class="divider"></div>
 
-<div class="language-buttons">
-    <a href="https://gzlanguage.github.io/french/" class="language-button">Français</a>
-    <a href="https://gzlanguage.github.io/espagnol/" class="language-button">Español</a>
-    <a href="https://gzlanguage.github.io/allemand/" class="language-button">Deutsch</a>
-    <a href="https://gzlanguage.github.io/chinois/" class="language-button">中文</a>
-    <a href="https://gzlanguage.github.io/russe/" class="language-button">Русский</a>
-    <a href="https://gzlanguage.github.io/arabe/" class="language-button">العربية</a>
-    <a href="https://gzlanguage.github.io/portugais/" class="language-button">Português</a>
-    <a href="https://gzlanguage.github.io/italien/" class="language-button">Italiano</a>
-    <a href="https://gzlanguage.github.io/neerlandais/" class="language-button">Nederlands</a>
-    <a href="https://gzlanguage.github.io/japonais/" class="language-button">日本語</a>
-    <a href="https://gzlanguage.github.io/coreen/" class="language-button">한국어</a>
-    <a href="https://gzlanguage.github.io/turc/" class="language-button">Türkçe</a>
-    <a href="https://gzlanguage.github.io/hindi/" class="language-button">हिन्दी</a>
-    <a href="https://gzwlrd.github.io/Polski/" class="language-button">Polski</a>
-    <a href="https://gzwlrd.github.io/vietnamian/" class="language-button">Tiếng Việt</a>
-    <a href="https://gzlanguage.github.io/suedois/" class="language-button">Svenska</a>
-    <a href="https://gzwlrd.github.io/romania/" class="language-button">Română</a>
-    <a href="https://gzwlrd.github.io/grec/" class="language-button">Ελληνικά</a>
-    <a href="https://gzwlrd.github.io/tcheque/" class="language-button">Čeština</a>
-    <a href="https://gzwlrd.github.io/hongrois/" class="language-button">Magyar</a>
-    <a href="https://gzwlrd.github.io/bulgare/" class="language-button">Български</a>
-    <a href="https://gzwlrd.github.io/danois/" class="language-button">Dansk</a>
-    <a href="https://gzwlrd.github.io/finnois/" class="language-button">Suomi</a>
-    <a href="https://gzwlrd.github.io/slovaque/" class="language-button">Slovenčina</a>
-    <a href="https://gzwlrd.github.io/norvege/" class="language-button">Norsk</a>
-    <a href="https://gzwlrd.github.io/thai/" class="language-button">ไทย</a>
-    <a href="https://gzwlrd.github.io/indonesian/" class="language-button">Bahasa Indonesia</a>
-    <a href="https://gzwlrd.github.io/hebreu/" class="language-button">עברית</a>
-    <a href="https://gzwlrd.github.io/lituanie/" class="language-button">Lietuvių</a>
-    <a href="https://gzwlrd.github.io/lettenoie/" class="language-button">Latviešu</a>
-    <a href="https://gzwlrd.github.io/Estonie/" class="language-button">Eesti</a>
-    <a href="https://gzwlrd.github.io/croate/" class="language-button">Hrvatski</a>
-    <a href="https://gzwlrd.github.io/serbe/" class="language-button">Српски</a>
-    <a href="https://gzwlrd.github.io/slovaque/" class="language-button">Slovenščina</a>
-    <a href="https://gzwlrd.github.io/malte/" class="language-button">Malti</a>
-    <a href="https://gzwlrd.github.io/islandais/" class="language-button">Íslenska</a>
-    <a href="https://gzwlrd.github.io/irlandais/" class="language-button">Gaeilge</a>
-    <a href="https://gzwlrd.github.io/galice/" class="language-button">Galego</a>
-    <a href="https://gzwlrd.github.io/basque/" class="language-button">Euskara</a>
-    <a href="https://gzwlrd.github.io/catala/" class="language-button">Català</a>
-    <a href="https://gzwlrd.github.io/Luxembourg-/" class="language-button">Lëtzebuergesch</a>
-    <a href="https://gzwlrd.github.io/bengali/" class="language-button">বাংলা</a>
-    <a href="https://gzwlrd.github.io/ourdou/" class="language-button">اردو</a>
-</div>
-
 <footer>
-    <p></p> <!-- Xóa phần bản quyền -->
+    <p></p> <!-- Đã xóa phần bản quyền -->
 </footer>
 
 </body>
